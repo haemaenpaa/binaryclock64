@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="BinaryClockView">
+        <attr name="drawSeconds" format="boolean" />
+    </declare-styleable>
+</resources>
