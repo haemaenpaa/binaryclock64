@@ -108,7 +108,7 @@ public class BinaryClockView extends View {
         float centerX=paddingLeft+contentWidth/2;
         float centerY=paddingTop+contentHeight/2;
 
-        baseRadius*=0.9;
+        baseRadius*=7f/8;
 
         Paint p=new Paint();
 

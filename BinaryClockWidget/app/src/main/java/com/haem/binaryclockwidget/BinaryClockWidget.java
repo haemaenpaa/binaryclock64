@@ -104,7 +104,7 @@ public class BinaryClockWidget extends AppWidgetProvider {
         clockView.setDrawingCacheEnabled(true);
         clockView.measure(width, height);
         clockView.layout(0, 0, width, height);
-        int padding = (Math.min(width, height) / 10);
+        int padding = (Math.min(width, height) / 20);
         clockView.setPadding(padding, padding, padding, padding);
         clockView.setTime(hours,minutes,seconds);
         clockView.invalidate();

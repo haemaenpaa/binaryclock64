@@ -7,6 +7,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:background="#00f0"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:id="@+id/renderingImage"/>
 </FrameLayout>
