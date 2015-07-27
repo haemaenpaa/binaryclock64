@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
             public void run() {
                 while(true){
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(879);
                         semaphore.acquire();
                     } catch (InterruptedException e) {
                         e.printStackTrace();

@@ -20,6 +20,10 @@ import java.util.Calendar;
 public class BinaryClockView extends View {
 
     private  static final String LOGTAG="BCVIew";
+    /**
+     * The multiplier between base-60 and base-64 minutes and seconds
+     */
+    private static final float CONVERSION_MULTIPLIER=64f/60f;
 
     private byte hours=18;
     private byte minutes=44;
@@ -34,6 +38,16 @@ public class BinaryClockView extends View {
     private int paddingTop=0;
     private int paddingRight=0;
     private int paddingBottom=0;
+
+    public boolean isShowSeconds() {
+        return showSeconds;
+    }
+
+    public void setShowSeconds(boolean showSeconds) {
+        this.showSeconds = showSeconds;
+    }
+
+    private boolean showSeconds=false;
 
     public BinaryClockView(Context context) {
         super(context);
@@ -59,7 +73,8 @@ public class BinaryClockView extends View {
      * @param seconds
      */
     public void setTime(int hours,int minutes,int seconds){
-        int time=seconds+60*minutes;
+        double hourfraction=seconds/3600.0 + minutes/60.0;
+        int time= (int) (hourfraction*64*64);
         this.seconds= (byte) (time%64);
         time=(time-seconds)/64;
         this.minutes= (byte) (time%64);
@@ -70,7 +85,7 @@ public class BinaryClockView extends View {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.BinaryClockView, defStyle, 0);
-
+        showSeconds=a.getBoolean(R.styleable.BinaryClockView_drawSeconds,false);
         a.recycle();
 
 
@@ -171,7 +186,7 @@ public class BinaryClockView extends View {
 
         p.setStrokeWidth(1.0f*getResources().getDisplayMetrics().density);
 
-        for(int i=0;i<precalcCosMinutes.length;i++){
+        for(int i=0;showSeconds&&i<precalcCosMinutes.length;i++){
             float x= (float) (baseRadius*precalcSinMinutes[i]+centerX);
             float y= (float) (-baseRadius*precalcCosMinutes[i]+centerY);
 

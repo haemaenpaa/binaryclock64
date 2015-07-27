@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -80,9 +81,12 @@ public class BinaryClockWidget extends AppWidgetProvider {
 
         PendingIntent pendingIntent=PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
+        long cur=Calendar.getInstance().getTimeInMillis();
+        long toSleep=56250-(cur%56250);
+
         AlarmManager manager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
-        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, 1000, 937, pendingIntent);
+        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, toSleep, 56250, pendingIntent);
     }
 
     @Override
